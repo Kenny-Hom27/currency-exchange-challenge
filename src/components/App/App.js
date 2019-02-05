@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch} from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
-import AccountBalance from "../AccountBalance/AccountBalance";
 import AddCurrency from "../AddCurrency/AddCurrency";
 import DepositBalance from "../ChangeBalance/DepositBalance";
 import WithDrawBalance from "../ChangeBalance/WithdrawBalance";
@@ -18,7 +17,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={AccountBalance} />
+          <Route exact path="/" component={AddCurrency} />
           <Route exact path="/addCurrency" component={AddCurrency} />
           <Route exact path="/deposit" component={DepositBalance} />
           <Route exact path="/withdraw" component={WithDrawBalance} />
