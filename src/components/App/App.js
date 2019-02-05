@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import AccountBalance from "../AccountBalance/AccountBalance";
@@ -6,24 +7,24 @@ import AddCurrency from "../AddCurrency/AddCurrency";
 import DepositBalance from "../ChangeBalance/DepositBalance";
 import WithDrawBalance from "../ChangeBalance/WithdrawBalance";
 import TransferBalance from "../TransferBalance/TransferBalance";
-import TransactionHistory from "../TransactionHistory/TransactionHistory";
 
 class App extends Component {
-  async componentDidMount () {
-    await this.props.fetchRates(this.props.defaultCurrency)
-    this.props.calculateBalance()
+  async componentDidMount() {
+    await this.props.fetchRates(this.props.defaultCurrency);
+    this.props.calculateBalance();
   }
-  
+
   render() {
     return (
-      <div className="container">
-        <AccountBalance />
-        <AddCurrency />
-        <DepositBalance />
-        <WithDrawBalance />
-        <TransferBalance />
-        <TransactionHistory/>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={AccountBalance} />
+          <Route exact path="/addCurrency" component={AddCurrency} />
+          <Route exact path="/deposit" component={DepositBalance} />
+          <Route exact path="/withdraw" component={WithDrawBalance} />
+          <Route exact path="/transfer" component={TransferBalance} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
@@ -31,8 +32,11 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     defaultCurrency: state.account.defaultCurrency,
-    exchangeRates: state.account.exchangeRates,
+    exchangeRates: state.account.exchangeRates
   };
 };
 
-export default connect(mapStateToProps, actions)(App);
+export default connect(
+  mapStateToProps,
+  actions
+)(App);

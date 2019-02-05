@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import Layout from "../Layout/Layout";
+import "./TransferBalance.css";
 
 class TransferBalance extends Component {
   state = {
@@ -49,25 +51,39 @@ class TransferBalance extends Component {
       );
     });
     return (
-      <div>
-        Transfer Balance
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            value={sendAmount}
-            placeholder="Send an amount"
-            onChange={this.sendAmountChange}
-          />
-          <select value={sendType} onChange={this.sendTypeChange}>
-            {currencyTypes}
-          </select>
-          <label>Pick an account to send to</label>
-          <select value={receiveType} onChange={this.receiveTypeChange}>
-            {currencyTypes}
-          </select>
-          <button>Transfer Balance</button>
-        </form>
-      </div>
+      <Layout>
+        <div className="transfer-balance">
+          <div className="transfer-balance-title">Transfer Balance</div>
+
+          <form onSubmit={this.onSubmit}>
+            <input
+              type="text"
+              value={sendAmount}
+              placeholder="Send an amount"
+              onChange={this.sendAmountChange}
+              className="form-control col-md-5"
+            />
+            <select
+              value={sendType}
+              onChange={this.sendTypeChange}
+              className="form-control col-md-5"
+            >
+              {currencyTypes}
+            </select>
+            <div>
+              <div className="receive-label">Pick an account to send to</div>
+              <select
+                value={receiveType}
+                onChange={this.receiveTypeChange}
+                className="form-control col-md-5"
+              >
+                {currencyTypes}
+              </select>
+            </div>
+            <button className="btn btn-success">Transfer Balance</button>
+          </form>
+        </div>
+      </Layout>
     );
   }
 }

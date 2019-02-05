@@ -6,7 +6,7 @@ class IndividualBalance extends Component {
   makeDefault = async () => {
     await this.props.changeDefaultCurrency(this.props.currency);
     await this.props.fetchRates(this.props.currency);
-    this.props.calculateBalance()
+    this.props.calculateBalance();
   };
 
   render() {
@@ -14,17 +14,15 @@ class IndividualBalance extends Component {
     let isDefault = defaultCurrency === currency;
 
     return (
-      <div
-        className={
-          isDefault ? "account-balance default-currency" : "account-balance"
-        }
-      >
-        <div className="">{`${currency}: ${amount}`}</div>
-        {isDefault ? null : (
-          <div className="make-default-btn" onClick={this.makeDefault}>
-            Make Default
-          </div>
-        )}
+      <div className="individual-balance">
+        <div
+          className={
+            isDefault ? "account-balance default-currency" : "account-balance"
+          }
+          onClick={this.makeDefault}
+        >
+          <div className="">{`${currency}: ${amount}`}</div>
+        </div>
       </div>
     );
   }

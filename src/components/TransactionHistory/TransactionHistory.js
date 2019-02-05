@@ -1,14 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
+import "./TransactionHistory.css";
 
 class TransactionHistory extends Component {
   render() {
+    const { transactionHistory } = this.props
     return (
-      <div>
-      <div>Transaction History</div>
-        {this.props.transactionHistory.map((trans, idx) => {
-          return <div key={idx}>{trans}</div>
-        })}
+      <div className="transaction-history">
+        <div className="transaction-history-title">Transaction History</div>
+        <div className="transaction-history-logs">
+          {transactionHistory.map((trans, idx) => {
+            return (
+              <div key={idx} className="transaction-history-log">
+                Transaction#{transactionHistory.length-idx}: {trans}
+                <hr/>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -16,10 +25,8 @@ class TransactionHistory extends Component {
 
 const mapStateToProps = state => {
   return {
-    transactionHistory: state.account.transactionHistory,
+    transactionHistory: state.account.transactionHistory
   };
 };
 
-export default connect(
-  mapStateToProps,
-)(TransactionHistory);
+export default connect(mapStateToProps)(TransactionHistory);

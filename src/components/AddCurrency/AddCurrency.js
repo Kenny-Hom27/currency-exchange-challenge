@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import Layout from "../Layout/Layout";
+import "./AddCurrency.css";
 
 class AddCurrency extends Component {
   state = {
@@ -18,32 +20,33 @@ class AddCurrency extends Component {
     this.props.addCurrency(this.state.currency);
   };
 
-  filterCurrencies = currency => {
-    // const currencies = ["USD", "EUR", "CAD", "GBP", "AUD", "NZD", "HKD", "JPY"];
-
-    // if (currencies.includes(currency)) {
-      return (
-        <option key={currency} value={currency}>
-          {currency}
-        </option>
-      );
-    // }
-  };
-
   render() {
     const { exchangeRates } = this.props;
     return (
-      <div>
-        Add a currency account
-        <form onSubmit={this.onSubmit}>
-          <select name="select" value={this.state.currency} onChange={this.selectCurrency}>
-            {Object.keys(exchangeRates).map(rate =>
-              this.filterCurrencies(rate)
-            )}
-          </select>
-          <button>Add Currency Account</button>
-        </form>
-      </div>
+      <Layout>
+        <div className="add-currency">
+          <div className="add-currency-title">Add a currency account</div>
+          <form onSubmit={this.onSubmit} className="form-group">
+            <select
+              name="select"
+              value={this.state.currency}
+              onChange={this.selectCurrency}
+              className="form-control col-md-2"
+            >
+              {Object.keys(exchangeRates).map(currency => (
+                <option
+                  key={currency}
+                  value={currency}
+                  className="form-control"
+                >
+                  {currency}
+                </option>
+              ))}
+            </select>
+            <button className="btn btn-primary">Add Currency Account</button>
+          </form>
+        </div>
+      </Layout>
     );
   }
 }

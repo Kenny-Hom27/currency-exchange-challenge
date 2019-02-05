@@ -1,0 +1,18 @@
+.transaction-history {
+  text-align: center;
+}
+
+.transaction-history-title {
+  font-size: 24px;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.transaction-history-logs {
+  border: 1px solid grey;
+  padding-top: 20px;
+}
+
+.transaction-history-log {
+  font-style: italic;
+}

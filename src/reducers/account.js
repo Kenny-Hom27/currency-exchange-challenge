@@ -50,8 +50,6 @@ function calculateBalance(accountBalances, rates) {
   Object.keys(accountBalances).forEach(currency => {
     let myCurrency = parseFloat(accountBalances[currency]);
     let rate = parseFloat(rates[currency]) || 1;
-    console.log('rates', rates)
-    console.log('calc' , myCurrency, rate)
     totalBalance += myCurrency / rate;
   });
   return totalBalance.toFixed(2);
@@ -59,7 +57,12 @@ function calculateBalance(accountBalances, rates) {
 
 function transferBalance(accountBalances, transferDetails) {
   const { sendAmount, sendType, receiveType, exchangeRate } = transferDetails;
-  if (sendAmount > accountBalances[sendType] || !sendAmount) return accountBalances;
+  if (
+    sendAmount > accountBalances[sendType] ||
+    !sendAmount ||
+    isNaN(sendAmount)
+  )
+    return accountBalances;
 
   accountBalances[sendType] -= parseFloat(sendAmount);
 
@@ -126,12 +129,13 @@ export default function(state = INITIAL_STATE, action) {
 
       return {
         ...state,
-        accountBalances: {...transferredBalance},
+        accountBalances: { ...transferredBalance }
       };
-    case LOG_TRANSACTION: 
+    case LOG_TRANSACTION:
       return {
-        ...state, transactionHistory: [action.payload, ...state.transactionHistory]
-      }
+        ...state,
+        transactionHistory: [action.payload, ...state.transactionHistory]
+      };
     default:
       return state;
   }

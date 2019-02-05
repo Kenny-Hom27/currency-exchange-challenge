@@ -1,0 +1,25 @@
+.navbar {
+  display: block;
+}
+
+.navbar-items {
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar-item {
+  color: blue;
+  font-size: 20px;
+  font-weight: 500; 
+  margin-left: 7rem;
+  text-decoration: none;
+}
+
+.navbar-selected {
+  border-bottom: 2px solid blue;
+  padding-bottom: 10px;
+}
+
+.navbar-item:hover {
+  text-decoration: none;
+}

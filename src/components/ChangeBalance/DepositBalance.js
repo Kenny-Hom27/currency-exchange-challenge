@@ -6,7 +6,10 @@ import BalanceForm from "./BalanceForm";
 class DepositBalance extends Component {
   render() {
     return (
-      <BalanceForm label="Deposit" changeBalance={this.props.depositBalance} />
+        <BalanceForm
+          label="Deposit"
+          changeBalance={this.props.depositBalance}
+        />
     );
   }
 }
