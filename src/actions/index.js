@@ -6,7 +6,8 @@ import {
   CHANGE_DEFAULT_CURRENCY,
   ADD_CURRENCY,
   CALCULATE_BALANCE,
-  TRANSFER_BALANCE
+  TRANSFER_BALANCE,
+  LOG_TRANSACTION
 } from "./types";
 
 export const depositBalance = values => async dispatch => {
@@ -16,7 +17,8 @@ export const depositBalance = values => async dispatch => {
   });
 
   dispatch({
-    type: CALCULATE_BALANCE,
+    type: LOG_TRANSACTION,
+    payload: `Deposited ${values.amount} ${values.currencyType}`
   });
 };
 
@@ -24,6 +26,11 @@ export const withdrawBalance = values => async dispatch => {
   dispatch({
     type: WITHDRAW_BALANCE,
     payload: values
+  });
+
+  dispatch({
+    type: LOG_TRANSACTION,
+    payload: `Withdrew ${values.amount} ${values.currencyType}`
   });
 };
 
@@ -54,23 +61,25 @@ export const addCurrency = value => async dispatch => {
 
 export const calculateBalance = () => async dispatch => {
   dispatch({
-    type: CALCULATE_BALANCE,
+    type: CALCULATE_BALANCE
   });
 };
 
-export const transferBalance = (values) => async dispatch => {
+export const transferBalance = values => async dispatch => {
   const rates = await axios.get(
     `https://api.exchangeratesapi.io/latest?base=${values.sendType}`
   );
-  
-  const exchangeRate = rates.data.rates[values.receiveType]
 
+  const exchangeRate = rates.data.rates[values.receiveType];
+  const { sendAmount, sendType, receiveType } = values;
+  
   dispatch({
     type: TRANSFER_BALANCE,
-    payload: {...values, exchangeRate}
+    payload: { ...values, exchangeRate }
+  });
+
+  dispatch({
+    type: LOG_TRANSACTION,
+    payload: `Sent ${sendAmount} ${sendType} to the ${receiveType} account`
   });
 };
-
-
-
-

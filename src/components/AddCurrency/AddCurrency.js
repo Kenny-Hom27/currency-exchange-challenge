@@ -19,15 +19,15 @@ class AddCurrency extends Component {
   };
 
   filterCurrencies = currency => {
-    const currencies = ["USD", "EUR", "CAD", "GBP", "AUD", "NZD", "HKD", "JPY"];
+    // const currencies = ["USD", "EUR", "CAD", "GBP", "AUD", "NZD", "HKD", "JPY"];
 
-    if (currencies.includes(currency)) {
+    // if (currencies.includes(currency)) {
       return (
         <option key={currency} value={currency}>
           {currency}
         </option>
       );
-    }
+    // }
   };
 
   render() {

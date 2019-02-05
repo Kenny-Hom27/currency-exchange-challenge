@@ -6,6 +6,7 @@ import AddCurrency from "../AddCurrency/AddCurrency";
 import DepositBalance from "../ChangeBalance/DepositBalance";
 import WithDrawBalance from "../ChangeBalance/WithdrawBalance";
 import TransferBalance from "../TransferBalance/TransferBalance";
+import TransactionHistory from "../TransactionHistory/TransactionHistory";
 
 class App extends Component {
   async componentDidMount () {
@@ -21,6 +22,7 @@ class App extends Component {
         <DepositBalance />
         <WithDrawBalance />
         <TransferBalance />
+        <TransactionHistory/>
       </div>
     );
   }

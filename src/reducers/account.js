@@ -5,7 +5,8 @@ import {
   FETCH_RATES,
   CHANGE_DEFAULT_CURRENCY,
   CALCULATE_BALANCE,
-  TRANSFER_BALANCE
+  TRANSFER_BALANCE,
+  LOG_TRANSACTION
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -15,8 +16,6 @@ const INITIAL_STATE = {
   totalBalance: 0,
   transactionHistory: []
 };
-
-// Functions to handle the input change
 
 function depositBalance(accountBalances, deposit) {
   if (isNaN(deposit.amount) || !deposit.amount) return accountBalances;
@@ -51,8 +50,9 @@ function calculateBalance(accountBalances, rates) {
   Object.keys(accountBalances).forEach(currency => {
     let myCurrency = parseFloat(accountBalances[currency]);
     let rate = parseFloat(rates[currency]) || 1;
-
-    totalBalance += myCurrency * rate;
+    console.log('rates', rates)
+    console.log('calc' , myCurrency, rate)
+    totalBalance += myCurrency / rate;
   });
   return totalBalance.toFixed(2);
 }
@@ -128,6 +128,10 @@ export default function(state = INITIAL_STATE, action) {
         ...state,
         accountBalances: {...transferredBalance},
       };
+    case LOG_TRANSACTION: 
+      return {
+        ...state, transactionHistory: [action.payload, ...state.transactionHistory]
+      }
     default:
       return state;
   }
