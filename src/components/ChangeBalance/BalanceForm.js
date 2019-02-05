@@ -30,8 +30,8 @@ class BalanceForm extends Component {
   };
 
   render() {
-    const { label } = this.props
-    return (
+    const { label, accountBalances } = this.props
+    return ( 
       <div className="balance-form">
         <div className="balance-form-title">{label} Balance</div>
         <form onSubmit={this.onSubmit}>
@@ -42,7 +42,7 @@ class BalanceForm extends Component {
             onChange={this.amountChange}
           />
           <select value={this.state.value} onChange={this.chooseCurrency}>
-            {this.props.accountTypes.map(type => {
+            {Object.keys(accountBalances).map(type => {
               return (
                 <option key={type} value={type}>
                   {type}
@@ -59,7 +59,7 @@ class BalanceForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    accountTypes: state.account.accountTypes
+    accountBalances: state.account.accountBalances
   };
 };
 

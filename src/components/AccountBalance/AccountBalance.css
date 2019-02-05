@@ -1,4 +1,4 @@
-.account-balance {
+.account-balance-page {
 
 }
 
@@ -14,14 +14,34 @@
   align-items: center;
 }
 
-.account-balance-currency {
+/* Individual Balance */
+.account-balance {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 3px solid black;
   padding: 30px;
   margin: 5px;
   width: 200px;
   height: 200px;
+}
+
+.default-currency {
+  border-color: blue;
+}
+
+.make-default-btn {
+  cursor: pointer;
+  margin-top: 10px;
+  border: 2px solid blue;
+  border-radius: 5px;
+  padding: 5px;
+  transition: all .2s;
+}
+
+.make-default-btn:hover {
+  color: white;
+  background-color: blue;
+  transform: translateY(-2px);
 }
